@@ -42,7 +42,7 @@ def preprocess(dataset):
     dataset['tweet'].apply(lambda x: str(TextBlob(x).correct()))
 
     # remove whitespaces
-    # df['Gender'].str.strip()
+    # dataset['tweet'].str.strip()
 
     # tokenization
 
