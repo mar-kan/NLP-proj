@@ -46,12 +46,10 @@ def preprocess(dataset):
 
     # tokenization
 
-    # Stemming and Lemmatization
+    # Lemmatization
+    dataset['tweet'] = dataset['tweet'].apply(lemmatize_words)
 
     return dataset
-
-    # remove symbols
-    # df['Comment'] = df['Comment'].replace(to_replace =r'([^\s\w]|_)+', value = '', regex = True)
 
 
 def emojisToWords(text):
@@ -86,5 +84,8 @@ def removeCommonWords(text, toRemove, cnt):
                      in cnt.most_common(toRemove)])
 
 def lemmatize_words(text):
+    lemmatizer = WordNetLemmatizer()
+    wordnet_map = {"N": wordnet.NOUN, "V": wordnet.VERB, "J": wordnet.ADJ, "R": wordnet.ADV}
+
     pos_tagged_text = nltk.pos_tag(text.split())
     return " ".join([lemmatizer.lemmatize(word, wordnet_map.get(pos[0], wordnet.NOUN)) for word, pos in pos_tagged_text])
